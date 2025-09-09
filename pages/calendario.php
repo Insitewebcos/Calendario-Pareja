@@ -271,7 +271,7 @@ $csrf_token = generar_csrf();
         <div class="card mb-4">
           <div class="card-header">
             <h5 class="card-title mb-0">
-              <i class="bi bi-calendar me-2"></i>Estadísticas del Mes
+              <i class="bi bi-calendar3 me-2"></i>Estadísticas del Mes
             </h5>
           </div>
           <div class="card-body">

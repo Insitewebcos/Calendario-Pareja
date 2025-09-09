@@ -105,6 +105,7 @@ production_*.php
 user_data/
 private_files/
 confidential/
+rules/
 
 # Cache de aplicaciones específicas
 .cache/
