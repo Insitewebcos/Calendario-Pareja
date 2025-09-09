@@ -8,9 +8,37 @@ temp/
 tmp/
 cache/
 
-# Archivos de configuración local
+# Archivos de configuración local y producción
 config_local.php
-.env.local
+config_production.php
+
+# Variables de entorno (CRÍTICO - NUNCA SUBIR)
+.env
+.env.*
+!env.example
+*.env
+.environment
+
+# Credenciales y claves
+credentials.json
+secrets.json
+*.key
+*.pem
+*.crt
+api_keys.php
+secrets.php
+
+# Archivos de seguridad generados por el proyecto
+generar_claves.php
+info_entorno.php
+verificar_sistema.php
+
+# Archivos de instalación y configuración sensibles
+install.php
+install_*.php
+setup.php
+config_*.php
+!config_desarrollo.php
 
 # Logs
 logs/
@@ -39,3 +67,86 @@ sessions/
 
 # Imágenes temporales subidas
 uploads/temp/
+
+# Backups y dumps de base de datos
+*.sql.gz
+*.sql.bz2
+backup_*.sql
+dump_*.sql
+database_backup*
+db_dump*
+
+# Archivos de configuración del servidor web
+.htaccess.local
+.htaccess.production
+.htpasswd
+nginx.conf.local
+apache.conf.local
+
+# Certificados SSL y archivos de seguridad
+ssl/
+certs/
+private/
+*.p12
+*.pfx
+*.jks
+
+# Archivos de monitoreo y estadísticas
+analytics/
+stats/
+monitoring/
+
+# Archivos de migración y scripts de producción
+migrate_*.php
+deploy_*.php
+production_*.php
+
+# Archivos de usuario y datos privados
+user_data/
+private_files/
+confidential/
+
+# Cache de aplicaciones específicas
+.cache/
+opcache/
+twig_cache/
+
+# Archivos de error y debug específicos
+error_*.log
+debug_*.log
+trace_*.log
+php_error_*.log
+
+# Archivos temporales de editores
+*~
+*.tmp
+*.bak
+*.swp
+*.swo
+.*.swp
+.*.swo
+
+# Archivos del sistema Windows adicionales
+desktop.ini
+ehthumbs.db
+*.lnk
+
+# Archivos de Mac adicionales
+.AppleDouble
+.LSOverride
+._*
+
+# ============================================
+# IMPORTANTE - SEGURIDAD
+# ============================================
+# Este .gitignore protege información sensible como:
+# - Credenciales de base de datos (.env, config_*.php)
+# - Claves de seguridad y certificados (*.key, *.pem)
+# - Archivos de instalación y configuración (install*.php)
+# - Backups de base de datos (*.sql.gz, backup_*.sql)
+# - Logs con información sensible (*.log)
+# - Archivos de debugging (generar_claves.php, info_entorno.php)
+#
+# NUNCA agregues archivos con credenciales a Git usando -f
+# Si necesitas versionar configuraciones, usa archivos .example
+# ============================================
