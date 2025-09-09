@@ -1,0 +1,41 @@
+# Archivos de prueba
+test_*
+test_*.php
+*_test.php
+
+# Carpetas temporales
+temp/
+tmp/
+cache/
+
+# Archivos de configuración local
+config_local.php
+.env.local
+
+# Logs
+logs/
+*.log
+
+# Carpetas SQL (mantener solo scripts de estructura)
+sql/data/
+sql/backups/
+
+# IDE y editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Dependencias
+node_modules/
+vendor/composer/installed.json
+
+# Archivos de sesión PHP
+sessions/
+
+# Imágenes temporales subidas
+uploads/temp/

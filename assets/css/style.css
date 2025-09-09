@@ -1,0 +1,685 @@
+/* 
+ * Estilos personalizados para el Sistema de Calendario
+ * Bootstrap 5 + CSS personalizado
+ */
+
+/* Variables CSS personalizadas */
+:root {
+  --primary-color: #0d6efd;
+  --secondary-color: #6c757d;
+  --success-color: #198754;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+  --info-color: #0dcaf0;
+  --light-color: #f8f9fa;
+  --dark-color: #212529;
+
+  --calendar-border: #dee2e6;
+  --calendar-hover: #e9ecef;
+  --calendar-selected: #cfe2ff;
+  --calendar-today: #fff3cd;
+
+  --shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  --shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+
+  --border-radius: 0.375rem;
+  --border-radius-lg: 0.5rem;
+}
+
+/* Estilos generales */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: var(--dark-color);
+}
+
+/* Animaciones suaves */
+* {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Estilos para la página de login */
+.login-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.login-card {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  border-radius: var(--border-radius-lg);
+}
+
+/* Estilos para el calendario */
+.calendario-container {
+  background-color: #fff;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.calendario-header {
+  background: linear-gradient(135deg, var(--primary-color), #0056b3);
+  color: white;
+  padding: 1.5rem;
+}
+
+/* Optimización para pantallas grandes */
+@media (min-width: 1400px) {
+  .calendario-header {
+    padding: 1.2rem 1.5rem;
+  }
+
+  .calendario-navegacion {
+    padding: 0.8rem 1rem;
+  }
+
+  body {
+    font-size: 0.9rem;
+  }
+
+  .container-fluid {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .py-4 {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+
+  /* Ajustar alturas de los paneles laterales */
+  .card {
+    height: fit-content;
+  }
+
+  /* Optimizar espacios entre elementos */
+  .mb-4 {
+    margin-bottom: 1rem !important;
+  }
+}
+
+.calendario-header .form-select {
+  background-color: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: var(--dark-color);
+  font-weight: 500;
+}
+
+.calendario-header .form-select:focus {
+  background-color: white;
+  border-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
+}
+
+.calendario-navegacion {
+  background-color: var(--light-color);
+  border-bottom: 1px solid var(--calendar-border);
+  padding: 1rem;
+}
+
+.calendario-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  background-color: var(--calendar-border);
+  border: 1px solid var(--calendar-border);
+}
+
+.calendario-dia-semana {
+  background-color: var(--secondary-color);
+  color: white;
+  padding: 0.75rem;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+}
+
+.calendario-dia {
+  background-color: white;
+  min-height: 120px;
+  padding: 0.5rem;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: none;
+  text-align: left;
+}
+
+/* Ajustes para pantallas medianas y grandes */
+@media (min-width: 1400px) {
+  .calendario-dia {
+    min-height: calc((85vh - 200px) / 6);
+    max-height: calc((85vh - 200px) / 6);
+  }
+
+  .calendario-container {
+    max-height: 85vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .calendario-grid {
+    flex: 1;
+    display: grid;
+    grid-template-rows: auto repeat(6, 1fr);
+    min-height: calc(85vh - 160px);
+    height: calc(85vh - 160px);
+  }
+
+  .calendario-dia-semana {
+    padding: 0.6rem;
+    font-size: 0.8rem;
+  }
+
+  /* Hacer que el calendario principal ocupe más espacio */
+  .col-lg-9 {
+    flex: 0 0 75%;
+    max-width: 75%;
+  }
+
+  .col-lg-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .calendario-dia {
+    min-height: 90px;
+    padding: 0.4rem;
+  }
+}
+
+.calendario-dia:hover {
+  background-color: var(--calendar-hover);
+}
+
+.calendario-dia.otro-mes {
+  background-color: #f8f9fa;
+  color: var(--secondary-color);
+}
+
+.calendario-dia.hoy {
+  background-color: var(--calendar-today);
+  border: 2px solid var(--warning-color);
+}
+
+.calendario-dia.con-datos {
+  background-color: var(--calendar-selected);
+}
+
+.calendario-dia.con-datos:hover {
+  background-color: #b6d7ff;
+}
+
+.dia-numero {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+}
+
+.dia-valor {
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Estilos para observaciones eliminados - ahora solo se muestran como tooltips */
+
+/* Estilos para el modal */
+.modal-header {
+  background: linear-gradient(135deg, var(--primary-color), #0056b3);
+  color: white;
+  border-bottom: none;
+}
+
+.modal-header .btn-close {
+  filter: invert(1);
+}
+
+.modal-body {
+  padding: 2rem;
+}
+
+.modal-footer {
+  border-top: 1px solid var(--calendar-border);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Hacer que los botones del modal tengan tamaño uniforme */
+.modal-footer .btn {
+  min-width: 110px;
+  white-space: nowrap;
+}
+
+/* Grupo de botones de acción a la derecha */
+.modal-footer .btn-group-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* Responsividad para el modal */
+@media (max-width: 768px) {
+  .modal-footer {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .modal-footer .btn-group-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .modal-footer .btn {
+    flex: 1;
+    min-width: auto;
+  }
+
+  .modal-footer .btn-secondary {
+    width: 100%;
+    order: 2;
+  }
+
+  .modal-footer .btn-group-actions {
+    order: 1;
+  }
+}
+
+/* Estilos para formularios */
+.form-label {
+  font-weight: 600;
+  color: var(--dark-color);
+  margin-bottom: 0.5rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.input-group-text {
+  background-color: var(--light-color);
+  border-color: var(--calendar-border);
+}
+
+/* Estilos para botones */
+.btn {
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+}
+
+.btn-lg {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.125rem;
+}
+
+.btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+/* Estilos para alertas */
+.alert {
+  border: none;
+  border-radius: var(--border-radius);
+  border-left: 4px solid;
+  transition: opacity 0.5s ease-out;
+}
+
+.alert-danger {
+  border-left-color: var(--danger-color);
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.alert-success {
+  border-left-color: var(--success-color);
+  background-color: #d1eddd;
+  color: #155724;
+}
+
+/* Clase para alertas con auto-fade */
+.alert.auto-fade {
+  animation: fadeInAlert 0.3s ease-in-out;
+}
+
+@keyframes fadeInAlert {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Notificaciones flotantes */
+.toast-notification {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  min-width: 350px;
+  max-width: 500px;
+  padding: 1rem 1.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  animation: slideDownFade 0.4s ease-out;
+  transition: all 0.3s ease-out;
+}
+
+.toast-notification.success {
+  background: linear-gradient(135deg, var(--success-color), #0f5132);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.toast-notification.error {
+  background: linear-gradient(135deg, var(--danger-color), #842029);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.toast-notification .btn-close {
+  background: none;
+  border: none;
+  color: white;
+  opacity: 0.8;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 1rem;
+}
+
+.toast-notification .btn-close:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+@keyframes slideDownFade {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Contenedor para múltiples notificaciones */
+.toast-container {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.toast-container .toast-notification {
+  position: relative;
+  top: auto;
+  left: auto;
+  transform: none;
+  pointer-events: all;
+}
+
+.alert-warning {
+  border-left-color: var(--warning-color);
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.alert-info {
+  border-left-color: var(--info-color);
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+/* Navbar personalizado */
+.navbar-custom {
+  background: linear-gradient(135deg, var(--primary-color), #0056b3);
+  box-shadow: var(--shadow-sm);
+}
+
+.navbar-custom .navbar-brand,
+.navbar-custom .nav-link {
+  color: white !important;
+}
+
+.navbar-custom .nav-link:hover {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Loading spinner */
+.spinner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* Tooltips personalizados */
+.tooltip {
+  font-size: 0.875rem;
+}
+
+.tooltip-inner {
+  max-width: 300px;
+  text-align: left;
+  background-color: var(--dark-color);
+  border-radius: var(--border-radius);
+  padding: 0.5rem 0.75rem;
+  box-shadow: var(--shadow);
+}
+
+.tooltip.bs-tooltip-top .tooltip-arrow::before {
+  border-top-color: var(--dark-color);
+}
+
+.tooltip.bs-tooltip-bottom .tooltip-arrow::before {
+  border-bottom-color: var(--dark-color);
+}
+
+.tooltip.bs-tooltip-start .tooltip-arrow::before {
+  border-left-color: var(--dark-color);
+}
+
+.tooltip.bs-tooltip-end .tooltip-arrow::before {
+  border-right-color: var(--dark-color);
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .calendario-dia {
+    min-height: 80px;
+    padding: 0.25rem;
+  }
+
+  .dia-numero {
+    font-size: 0.875rem;
+    top: 0.25rem;
+    left: 0.25rem;
+  }
+
+  .dia-valor {
+    width: 20px;
+    height: 20px;
+    font-size: 0.75rem;
+  }
+
+  .modal-body {
+    padding: 1rem;
+  }
+
+  .calendario-header {
+    padding: 1rem;
+  }
+
+  .calendario-navegacion {
+    padding: 0.5rem;
+  }
+
+  /* Notificaciones flotantes en móviles */
+  .toast-notification {
+    min-width: 300px;
+    max-width: 90vw;
+    margin: 0 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .calendario-dia-semana {
+    padding: 0.5rem 0.25rem;
+    font-size: 0.75rem;
+  }
+
+  .calendario-dia {
+    min-height: 60px;
+    font-size: 0.75rem;
+  }
+
+  .dia-observaciones {
+    display: none; /* Ocultar en pantallas muy pequeñas */
+  }
+
+  /* Notificaciones en pantallas muy pequeñas */
+  .toast-notification {
+    min-width: 280px;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-in-out;
+}
+
+/* Estilos para números de validación 1-5 */
+.numero-selector {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.numero-opcion {
+  aspect-ratio: 1;
+  border: 2px solid var(--calendar-border);
+  border-radius: var(--border-radius);
+  background-color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1.125rem;
+  transition: all 0.2s ease;
+}
+
+.numero-opcion:hover {
+  border-color: var(--primary-color);
+  background-color: var(--calendar-hover);
+}
+
+.numero-opcion.selected {
+  border-color: var(--primary-color);
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* Indicadores de estado */
+.estado-indicador {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--success-color);
+}
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--light-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--secondary-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--dark-color);
+}
