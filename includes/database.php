@@ -50,10 +50,26 @@ class Database {
     }
     
     /**
+     * Alias en inglés para compatibilidad
+     * @return Database
+     */
+    public static function getInstance() {
+        return self::obtener_instancia();
+    }
+    
+    /**
      * Obtiene la conexión PDO
      * @return PDO
      */
     public function obtener_conexion() {
+        return $this->conexion;
+    }
+    
+    /**
+     * Alias en inglés para compatibilidad
+     * @return PDO
+     */
+    public function getConnection() {
         return $this->conexion;
     }
     

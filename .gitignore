@@ -18,6 +18,16 @@ config_production.php
 !env.example
 *.env
 .environment
+env.production
+env.local
+env.staging
+
+# Archivos de configuración con credenciales
+*_production.php
+*_production.json
+production_*
+staging_*
+local_config.*
 
 # Credenciales y claves
 credentials.json
@@ -33,18 +43,27 @@ generar_claves.php
 info_entorno.php
 verificar_sistema.php
 
+# Archivos específicos del proyecto con datos sensibles
+install_usuario.php
+setup_inicial.php
+crear_admin.php
+reset_database.php
+migrate_data.php
+
 # Archivos de instalación y configuración sensibles
 install.php
 install_*.php
 setup.php
 config_*.php
 !config_desarrollo.php
+config_production_example.php
 
 # Logs
 logs/
 *.log
 
 # Carpetas SQL (mantener solo scripts de estructura)
+sql/
 sql/data/
 sql/backups/
 
@@ -106,6 +125,7 @@ user_data/
 private_files/
 confidential/
 rules/
+Documentacion
 
 # Cache de aplicaciones específicas
 .cache/

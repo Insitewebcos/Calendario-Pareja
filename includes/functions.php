@@ -11,6 +11,9 @@ require_once 'config.php';
  */
 function iniciar_sesion_segura() {
     if (session_status() === PHP_SESSION_NONE) {
+        // Configurar sesiones ANTES de iniciarlas
+        configurar_sesiones_seguras();
+        
         session_name(SESSION_NAME);
         session_start();
         

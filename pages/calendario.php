@@ -22,16 +22,43 @@ if (!$usuario_actual) {
     exit();
 }
 
-// Obtener mes y año actuales o desde parámetros
-$anio_actual = isset($_GET['anio']) ? (int)$_GET['anio'] : date('Y');
-$mes_actual = isset($_GET['mes']) ? (int)$_GET['mes'] : date('n');
+// Obtener fecha actual como valores por defecto
+$fecha_actual_mes = (int)date('n');
+$fecha_actual_anio = (int)date('Y');
 
-// Validar valores de mes y año
-if ($mes_actual < 1 || $mes_actual > 12) {
-    $mes_actual = date('n');
+// Debug temporal - quitar después
+if (DEBUG_MODE) {
+    error_log("DEBUG: Fecha actual - Mes: $fecha_actual_mes, Año: $fecha_actual_anio");
+    error_log("DEBUG: GET params - Mes: " . ($_GET['mes'] ?? 'no definido') . ", Año: " . ($_GET['anio'] ?? 'no definido'));
 }
-if ($anio_actual < 2020 || $anio_actual > 2030) {
-    $anio_actual = date('Y');
+
+// Obtener mes y año desde parámetros GET o usar valores actuales
+$mes_actual = $fecha_actual_mes;
+$anio_actual = $fecha_actual_anio;
+
+// Solo cambiar si hay parámetros GET válidos
+if (isset($_GET['mes']) && !empty($_GET['mes'])) {
+    $mes_get = (int)$_GET['mes'];
+    if ($mes_get >= 1 && $mes_get <= 12) {
+        $mes_actual = $mes_get;
+    }
+}
+
+if (isset($_GET['anio']) && !empty($_GET['anio'])) {
+    $anio_get = (int)$_GET['anio'];
+    if ($anio_get >= 2020 && $anio_get <= 2035) {
+        $anio_actual = $anio_get;
+    }
+}
+
+// Debug temporal - verificar valores finales
+if (DEBUG_MODE) {
+    error_log("DEBUG: Valores finales - Mes: $mes_actual, Año: $anio_actual");
+}
+
+// Debug visual temporal (eliminar después)
+if (IS_LOCALHOST) {
+    echo "<!-- DEBUG: Mes actual: $mes_actual, Año actual: $anio_actual, Fecha PHP: " . date('n/Y') . " -->";
 }
 
 $errores = [];
@@ -129,7 +156,7 @@ $csrf_token = generar_csrf();
   <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Bootstrap Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
   <!-- CSS personalizado -->
   <link href="../assets/css/style.css" rel="stylesheet">
 </head>
@@ -205,7 +232,7 @@ $csrf_token = generar_csrf();
                   </select>
                   <select name="anio" class="form-select form-select-sm" style="width: auto; min-width: 80px;"
                     onchange="this.form.submit()">
-                    <?php for ($a = 2020; $a <= 2030; $a++): ?>
+                    <?php for ($a = 2020; $a <= 2035; $a++): ?>
                     <option value="<?php echo $a; ?>" <?php echo $a === $anio_actual ? 'selected' : ''; ?>>
                       <?php echo $a; ?>
                     </option>

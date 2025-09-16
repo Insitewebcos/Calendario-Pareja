@@ -34,11 +34,11 @@ define('IS_PRODUCTION', !$is_localhost);
 // ============================================
 
 // Usar variables de entorno con fallbacks seguros
-define('DB_HOST', EnvLoader::get('DB_HOST', IS_LOCALHOST ? 'localhost' : 'localhost'));
+define('DB_HOST', EnvLoader::get('DB_HOST', IS_LOCALHOST ? 'localhost' : 'db5018588394.hosting-data.io'));
 define('DB_PORT', EnvLoader::getInt('DB_PORT', 3306));
-define('DB_NAME', EnvLoader::get('DB_NAME', IS_LOCALHOST ? 'calendario_proyecto' : ''));
-define('DB_USER', EnvLoader::get('DB_USER', IS_LOCALHOST ? 'root' : ''));
-define('DB_PASS', EnvLoader::get('DB_PASS', ''));
+define('DB_NAME', EnvLoader::get('DB_NAME', IS_LOCALHOST ? 'calendario_proyecto' : 'dbs14744038'));
+define('DB_USER', EnvLoader::get('DB_USER', IS_LOCALHOST ? 'root' : 'dbu1865109'));
+define('DB_PASS', EnvLoader::get('DB_PASS', IS_LOCALHOST ? '' : 'ZT%9cGVrEIorb1qy'));
 define('DB_CHARSET', EnvLoader::get('DB_CHARSET', 'utf8mb4'));
 
 // Validar que las credenciales críticas estén definidas en producción
@@ -68,7 +68,7 @@ define('SESSION_TIMEOUT', EnvLoader::getInt('SESSION_TIMEOUT', 3600)); // 1 hora
 // ============================================
 
 // URLs usando variables de entorno con fallbacks inteligentes
-$default_base_url = IS_LOCALHOST ? 'http://localhost/xxx/' : '';
+$default_base_url = IS_LOCALHOST ? 'http://localhost/xxx/' : 'http://calendario.insiteweb.es/';
 define('BASE_URL', EnvLoader::get('BASE_URL', $default_base_url));
 define('SITE_URL', EnvLoader::get('SITE_URL', BASE_URL));
 define('ASSETS_URL', EnvLoader::get('ASSETS_URL', BASE_URL . 'assets/'));
@@ -106,12 +106,20 @@ date_default_timezone_set(TIMEZONE);
 // CONFIGURACIÓN DE SESIONES SEGURAS
 // ============================================
 
-ini_set('session.cookie_httponly', 1);
-ini_set('session.use_only_cookies', 1);
-
-// Configurar HTTPS según entorno y variable de entorno
-$session_secure = EnvLoader::getBool('SESSION_SECURE', IS_PRODUCTION);
-ini_set('session.cookie_secure', $session_secure ? 1 : 0);
+/**
+ * Configurar sesiones seguras - LLAMAR ANTES de session_start()
+ */
+function configurar_sesiones_seguras() {
+    // Solo configurar si no hay sesión activa
+    if (session_status() === PHP_SESSION_NONE) {
+        ini_set('session.cookie_httponly', 1);
+        ini_set('session.use_only_cookies', 1);
+        
+        // Configurar HTTPS según entorno
+        $session_secure = EnvLoader::getBool('SESSION_SECURE', IS_PRODUCTION);
+        ini_set('session.cookie_secure', $session_secure ? 1 : 0);
+    }
+}
 
 // ============================================
 // CONFIGURACIÓN DE ERRORES Y LOGS
